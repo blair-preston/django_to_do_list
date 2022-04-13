@@ -21,7 +21,9 @@ class Event(models.Model):
     label = models.CharField(max_length=300)
     description = models.CharField(max_length=800, blank=True, null=True) #optional
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-    duration = models.DurationField()
+    start_time = models.DateTimeField(null=True, blank=True)
+    end_time = models.DateTimeField(null=True, blank=True)
+    is_all_day = models.BooleanField(default=False, blank=True)
     location = models.CharField(max_length=500)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -61,7 +63,6 @@ class Todo(models.Model):
     label = models.CharField(max_length=300)
     description = models.CharField(max_length=800, blank=True, null=True) #optional
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-    created_at = models.DateTimeField('date created')
     priority_id = models.ForeignKey(Priority, on_delete=models.CASCADE)
     due_by = models.DateTimeField(blank=True, null=True)
     status_id = models.ForeignKey(Status, on_delete=models.CASCADE)

@@ -22,7 +22,8 @@ Table events {
   label varchar [not null]
   description varchar [note: 'optional']
   category_id int [ref: > categories.id] [not null]
-  duration duration [not null]
+  start_time datetime
+  end_time datetime
   location varchar [not null]
   user_id int [ref: > users.id] [not null]
 }
