@@ -19,7 +19,7 @@ class Category(models.Model):
 
 class Event(models.Model):
     label = models.CharField(max_length=300)
-    description = models.CharField(max_length=800, blank=True, null=True) #optional (might need default='')
+    description = models.CharField(max_length=800, blank=True, null=True) #optional
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     duration = models.DurationField()
     location = models.CharField(max_length=500)
@@ -30,7 +30,7 @@ class Event(models.Model):
 
 class Daily(models.Model):
     label = models.CharField(max_length=300)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True) #optional (might need default='')
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True) #optional
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -59,7 +59,7 @@ class Status(models.Model):
 
 class Todo(models.Model):
     label = models.CharField(max_length=300)
-    description = models.CharField(max_length=800, blank=True, null=True) #optional (might need default='')
+    description = models.CharField(max_length=800, blank=True, null=True) #optional
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateTimeField('date created')
     priority_id = models.ForeignKey(Priority, on_delete=models.CASCADE)
