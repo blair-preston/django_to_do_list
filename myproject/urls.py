@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from todoapp import views
+from django.conf.urls.static import static
+from . import settings
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -28,9 +31,12 @@ router.register(r'statuses', views.StatusViewSet)
 router.register(r'todos', views.TodoViewSet)
 
 
+
 urlpatterns = [
     path('api/', include(router.urls)),
     # path('api/', include('todoapp.urls')),
     path('admin/', admin.site.urls),
+    path('api/token/', TokenObtainPairView.as_view(),
+name='token_obtain_pair'),
     path('api-auth/', include('rest_framework.urls'))
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
