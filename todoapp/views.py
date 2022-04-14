@@ -2,6 +2,10 @@ from .models import User, Category, Event, Daily, Priority, Status, Todo
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import UserSerializer, CategorySerializer, EventSerializer, DailySerializer, PrioritySerializer, StatusSerializer, TodoSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -10,6 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    # search_fields = ['=name']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
@@ -17,6 +22,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user_id__name', 'user_id']
 
 class EventViewSet(viewsets.ModelViewSet):
     """
@@ -24,6 +31,8 @@ class EventViewSet(viewsets.ModelViewSet):
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user_id__name', 'user_id']
 
 class DailyViewSet(viewsets.ModelViewSet):
     """
@@ -31,6 +40,8 @@ class DailyViewSet(viewsets.ModelViewSet):
     """
     queryset = Daily.objects.all()
     serializer_class = DailySerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user_id__name', 'user_id']
 
 class PriorityViewSet(viewsets.ModelViewSet):
     """
@@ -52,12 +63,6 @@ class TodoViewSet(viewsets.ModelViewSet):
     """
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-
-    # def get_queryset(self):
-    #     """
-    #     This view should return a list of all the purchases for
-    #     the user as determined by the username portion of the URL.
-    #     """
-    #     user_name = self.kwargs['name']
-    #     return Todo.objects.filter(todo__user_name=username)  
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user_id__name', 'user_id']
 
