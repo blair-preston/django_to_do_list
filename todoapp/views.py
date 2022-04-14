@@ -11,7 +11,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
 class CategoryViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -53,3 +52,12 @@ class TodoViewSet(viewsets.ModelViewSet):
     """
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
+
+    # def get_queryset(self):
+    #     """
+    #     This view should return a list of all the purchases for
+    #     the user as determined by the username portion of the URL.
+    #     """
+    #     user_name = self.kwargs['name']
+    #     return Todo.objects.filter(todo__user_name=username)  
+
