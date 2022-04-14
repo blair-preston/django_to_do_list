@@ -34,6 +34,7 @@ router.register(r'todos', views.TodoViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('api/user/<str:name>/', include(router.urls)),
     # path('api/', include('todoapp.urls')),
     path('admin/', admin.site.urls),
     path('api/token/', TokenObtainPairView.as_view(),
