@@ -2,6 +2,10 @@ from .models import User, Category, Event, Daily, Priority, Status, Todo
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import UserSerializer, CategorySerializer, EventSerializer, DailySerializer, PrioritySerializer, StatusSerializer, TodoSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -17,6 +21,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user_id__name', 'user_id']
+    """
+    ^ Allows a category view searching by user name bc of the foreign key relation with user_id or simply by user id
+    """
 
 class EventViewSet(viewsets.ModelViewSet):
     """
@@ -24,6 +33,11 @@ class EventViewSet(viewsets.ModelViewSet):
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user_id__name', 'user_id']
+    """
+    ^ Allows an event view searching by user name bc of the foreign key relation with user_id or simply by user id
+    """
 
 class DailyViewSet(viewsets.ModelViewSet):
     """
@@ -31,6 +45,11 @@ class DailyViewSet(viewsets.ModelViewSet):
     """
     queryset = Daily.objects.all()
     serializer_class = DailySerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user_id__name', 'user_id']
+    """
+    ^ Allows a daily view searching by user name bc of the foreign key relation with user_id or simply by user id
+    """
 
 class PriorityViewSet(viewsets.ModelViewSet):
     """
@@ -38,6 +57,9 @@ class PriorityViewSet(viewsets.ModelViewSet):
     """
     queryset = Priority.objects.all()
     serializer_class = PrioritySerializer
+    """
+    ^ Allows a priority view searching by user name bc of the foreign key relation with user_id or simply by user id
+    """
 
 class StatusViewSet(viewsets.ModelViewSet):
     """
@@ -45,6 +67,9 @@ class StatusViewSet(viewsets.ModelViewSet):
     """
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
+    """
+    ^ Allows a status view searching by user name bc of the foreign key relation with user_id or simply by user id
+    """
 
 class TodoViewSet(viewsets.ModelViewSet):
     """
@@ -52,12 +77,9 @@ class TodoViewSet(viewsets.ModelViewSet):
     """
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-
-    # def get_queryset(self):
-    #     """
-    #     This view should return a list of all the purchases for
-    #     the user as determined by the username portion of the URL.
-    #     """
-    #     user_name = self.kwargs['name']
-    #     return Todo.objects.filter(todo__user_name=username)  
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user_id__name', 'user_id']
+    """
+    ^ Allows a todo view searching by user name bc of the foreign key relation with user_id or simply by user id
+    """
 
