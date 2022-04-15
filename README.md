@@ -14,3 +14,9 @@ Processes that should run:
 
 ## Django Admin
 The CSRF_TRUSTED_ORIGINS setting in settings.py should be set to allow `https://*.gitpod.io` for a trusted CSRF token.
+
+## Things to install in workspace:
+pip install Django
+pip install Psycopg2
+pip install djangorestframework-simplejwt
+pip install django-filter
