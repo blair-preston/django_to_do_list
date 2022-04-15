@@ -3,10 +3,11 @@ from django.contrib.auth.models import User as Djuser
 from .models import User
 import json
 
+# create a test django admin user:
 test_djuser = {"username": "testuser", "password": "testpassword"}
 
-# class allowing users to create a username and password
-# and then to be allowed to log in
+# class allowing users to create a username and password for logging in
+# a new_user of the User class is also created to be used in the test db for running the tests
 class DjUsersTest(TestCase):
     def setUp(self):
         new_djuser = Djuser.objects.create(
@@ -30,11 +31,11 @@ class DjUsersTest(TestCase):
         self.assertTrue("access" in result)
         return result["access"]
 
-    # test should return 401 error
-    # Make sure that unauthorized users are not allowed to POST
+    # Make sure that unauthorized users are not allowed to POST (meaning they don't have the token)
     def test_unauthorized_cant_add_category(self):
         testuser = User.objects.last(),
         testid = int(testuser[0].id)
+        # test category to add
         res = self.client.post('/api/categories/',
             data=json.dumps({
                 "title": "Personal",
@@ -45,6 +46,7 @@ class DjUsersTest(TestCase):
             HTTP_AUTHORIZATION=f'Bearer WRONG TOKEN'
             )
         self.assertEquals(res.status_code, 401)
+        # test category to add
         res = self.client.post('/api/categories/',
                                 data=json.dumps({
                                     "title": "House",
@@ -57,11 +59,12 @@ class DjUsersTest(TestCase):
         self.assertEquals(res.status_code, 401)
         
 
-        # Authorized users are allowed to POST
+    # Authorized users are allowed to POST (testing that they DO have the token)
     def test_authorized_can_add_category(self):
         testuser = User.objects.last(),
         testid = int(testuser[0].id)
         token = self.get_token()
+        # test category to add
         res = self.client.post('/api/categories/',
                                 data=json.dumps({
                                     "title": "House",

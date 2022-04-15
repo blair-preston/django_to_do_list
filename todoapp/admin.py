@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 
+# register models to Django admin
 admin.site.register(Todo)
 admin.site.register(Category)
 admin.site.register(Event)

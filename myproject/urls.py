@@ -34,11 +34,7 @@ router.register(r'todos', views.TodoViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    # path('^todos/(?P<name>.+)/$', include(router.urls)),
-    # path('api/user/<str:name>/', include(router.urls)),
-    # path('api/', include('todoapp.urls')),
     path('admin/', admin.site.urls),
-    path('api/token/', TokenObtainPairView.as_view(),
-    name='token_obtain_pair'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api-auth/', include('rest_framework.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
