@@ -8,7 +8,8 @@ Django To-Do-List Database
 o	An API that saves a user’s to-do list items in a PostgresQL database <br />
 o	Fully capable CRUD (create, read, update, delete) operations <br />
 o	Created dbDiagram for pseudocode <br />
-o	Create a route that filters a list of todos by user.
+o	Create a route that filters a list of todos by user. <br />
+o Implemented authorization testing for user login.
 
 
 ## Tech Stack
